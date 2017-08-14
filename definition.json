@@ -1,5 +1,5 @@
 {
-  "name": "entitybrowser",
+  "name": "user",
   "serve": [
     {
       "name": "createUser",
@@ -62,6 +62,29 @@
       "returntype": "boolean",
       "namespace": "user",
       "args": []
+    },
+    {
+      "name": "changePassword",
+      "title": "Change password",
+      "description": "",
+      "returntype": "boolean",
+      "namespace": "user",
+      "args": [
+        {
+          "name": "oldPassword",
+          "title": "Old password",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "newPassword",
+          "title": "New password",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ]
     }
   ],
   "dependencies": [

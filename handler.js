@@ -58,6 +58,18 @@ class Handler{
     return this.login(username, password)
   }
 
+  async changePassword(oldPassword, newPassword){
+    let userId = crypto.createHash('sha256').update(this.username).digest('hex');
+    let passwordHashOld = crypto.createHmac('sha256', this.global.passwordSalt).update(oldPassword).digest('hex');
+    let passwordHashNew = crypto.createHmac('sha256', this.global.passwordSalt).update(newPassword).digest('hex');
+    if(this.global.users[userId] !== undefined && this.global.users[userId].passwordHash == passwordHashOld){
+        await this.meta.setProperty(userId, "passwordHash", passwordHashNew)
+        this.global.users[userId].passwordHash = passwordHashNew
+        return true
+    }
+    return false
+  }
+
   async login(username, password){
     let userId = crypto.createHash('sha256').update(username).digest('hex');
     let passwordHash = crypto.createHmac('sha256', this.global.passwordSalt).update(password).digest('hex');
