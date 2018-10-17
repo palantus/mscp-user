@@ -13,6 +13,12 @@ class Handler{
 
   async initFirst(){
     let passwordSaltRows = await this.mscp.meta.find("tag:entity_password_salt")
+
+    if(passwordSaltRows === undefined || passwordSaltRows == null){
+      console.log("Error from mscp-user: Did you remember to add a metadata service? If not, add it and restart.")
+      return;
+    }
+
     if(passwordSaltRows.length == 0){
       this.global.passwordSalt = uuid.v4()
       await this.mscp.meta.addTag(this.global.passwordSalt, "entity_password_salt")
